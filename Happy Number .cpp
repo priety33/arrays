@@ -41,3 +41,42 @@ public:
         return false;
     }
 };
+
+
+//without extra space
+//two pointers slow,fast- just like finding loop in linked list, here they should meet at 1 for number to be happy
+
+// Utility method to return sum of square of 
+// digit of n 
+int numSquareSum(int n) 
+{ 
+    int squareSum = 0; 
+    while (n) 
+    { 
+        squareSum += (n % 10) * (n % 10); 
+        n /= 10; 
+    } 
+    return squareSum; 
+} 
+  
+//    method return true if n is Happy number 
+bool isHappynumber(int n) 
+{ 
+    int slow, fast; 
+  
+    //    initialize slow and fast by n 
+    slow = fast = n; 
+    do
+    { 
+        //    move slow number by one iteration 
+        slow = numSquareSum(slow); 
+  
+        //    move fast number by two iteration 
+        fast = numSquareSum(numSquareSum(fast)); 
+  
+    } 
+    while (slow != fast); 
+  
+    //    if both number meet at 1, then return true 
+    return (slow == 1); 
+} 
