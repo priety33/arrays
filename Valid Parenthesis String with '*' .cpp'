@@ -1,0 +1,39 @@
+/*
+Valid Parenthesis String
+
+Given a string containing only three types of characters: '(', ')' and '*',
+write a function to check whether this string is valid. We define the validity of a string by these rules:
+
+   1. Any left parenthesis '(' must have a corresponding right parenthesis ')'.
+   2. Any right parenthesis ')' must have a corresponding left parenthesis '('.
+   3. Left parenthesis '(' must go before the corresponding right parenthesis ')'.
+   4. '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string.
+   5. An empty string is also valid.
+
+*/
+
+class Solution {
+public:
+    bool checkValidString(string str) {
+        int l=0, s=0, r=0;
+        for(int i=0;i<str.size(); i++) //left to right traversal
+        {
+            if(str[i]=='(') l++;
+            else if(str[i]==')') r++;
+            else if(str[i]=='*') s++;
+            
+            if(r>l+s) return false; //if r is greater, it cannot be balanced later in string => because its validopenings should exist before this point.
+        }
+        l=0, r=0, s=0;
+        for(int i=str.size()-1;i>=0;i--) //right to left traversal
+        {
+            if(str[i]=='(') l++;
+            else if(str[i]==')') r++;
+            else if(str[i]=='*') s++;
+            
+            if(l>r+s) return false; //if l is greater, it cannot be balanced later in string => because its valid closing should exist after it only, and we are moving backwards here
+        }
+        
+        return abs(r-l)<=s;
+    }
+};
